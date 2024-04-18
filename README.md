@@ -1,6 +1,7 @@
 # uterm
 
-Microscopic floating terminal for neovim with nothing special.
+Microscopic floating terminal for neovim with nothing special. Made this plugin
+to learn how to make plugins.
 
 ## Config
 
