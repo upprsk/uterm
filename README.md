@@ -45,5 +45,28 @@ The default options for each terminal are:
     auto_close = true,
     -- list the terminal buffer (visible to :buffers)
     listed = false,
+    -- table of options to set for the buffer
+    bufopts = nil,
+    -- list of mappings to define for the buffer
+    mappings = nil,
+}
+```
+
+For the `bufopts`, simply use:
+
+```lua
+bufopts = {
+    option_1 = 123,
+    option_2 = true,
+    --- etc
+}
+```
+
+For the `mappings` use:
+
+```lua
+mappings = {
+    -- disable double esc for entering normal mode in terminal
+    { '<Esc><Esc>', '', mode = 't', opts = { desc = 'disable double esc' } },
 }
 ```
