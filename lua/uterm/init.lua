@@ -13,8 +13,8 @@ function M.setup(opts)
 		default = {},
 	}
 
-	for k, v in pairs(opts) do
-		M.new_named(k, v)
+	for n, o in pairs(opts) do
+		M.new_named(n, o)
 	end
 end
 
