@@ -17,6 +17,8 @@ local default_dimensions = { width = 0.8, height = 0.8, x = 0.5, y = 0.5 }
 ---@field border string
 ---@field title string?
 ---@field listed boolean
+---@field bufopts table<string, any>?
+---@field mappings {[1]: string, [2]: string, mode: string, opts: table?}[]?
 
 ---@type TermConfig
 local default_options = {
@@ -46,6 +48,16 @@ function Term:_get_buf()
   local buf = vim.api.nvim_create_buf(self.opts.listed, true)
   -- this ensures filetype is set on first run
   vim.api.nvim_buf_set_option(buf, 'filetype', self.opts.ft)
+
+  -- set options for the buffer
+  for k, v in pairs(self.opts.bufopts or {}) do
+    vim.api.nvim_buf_set_option(buf, k, v)
+  end
+
+  -- set keymaps for the buffer
+  for _, v in ipairs(self.opts.mappings or {}) do
+    vim.api.nvim_buf_set_keymap(buf, v.mode or 'n', v[1], v[2], v.opts or {})
+  end
 
   return buf
 end
