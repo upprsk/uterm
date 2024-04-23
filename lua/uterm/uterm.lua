@@ -56,7 +56,7 @@ function Term:_get_buf()
 
   -- set keymaps for the buffer
   for _, v in ipairs(self.opts.mappings or {}) do
-    vim.keymap.set(v.mode or 'n', v[1], v[2], vim.tbl_extend('force', v.opts, { buffer = buf }))
+    vim.keymap.set(v.mode or 'n', v[1], v[2], vim.tbl_extend('force', v.opts or {}, { buffer = buf }))
   end
 
   return buf
