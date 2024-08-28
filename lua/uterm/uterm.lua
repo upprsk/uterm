@@ -19,6 +19,7 @@ local default_dimensions = { width = 0.8, height = 0.8, x = 0.5, y = 0.5 }
 ---@field listed boolean
 ---@field bufopts table<string, any>?
 ---@field mappings {[1]: string, [2]: string, mode: string, opts: table?}[]?
+---@field unmappings {[1]: string, mode: string, opts: table?}[]?
 
 ---@type TermConfig
 local default_options = {
@@ -57,6 +58,11 @@ function Term:_get_buf()
   -- set keymaps for the buffer
   for _, v in ipairs(self.opts.mappings or {}) do
     vim.keymap.set(v.mode or 'n', v[1], v[2], vim.tbl_extend('force', v.opts or {}, { buffer = buf }))
+  end
+
+  -- unset keymaps for the buffer
+  for _, v in ipairs(self.opts.unmappings or {}) do
+    vim.keymap.del(v.mode or 'n', v[1], vim.tbl_extend('force', v.opts or {}, { buffer = buf }))
   end
 
   return buf
